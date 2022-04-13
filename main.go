@@ -3,15 +3,19 @@ package main
 import (
 	"fmt"
 
-	"github.com/gemini78/mymodule/footypes"
+	"github.com/gemini78/mymodule/functions"
 )
 
+func CalculateValue(intChan chan int) {
+	randomNumber := functions.GenerateRandomNumber(50)
+	intChan <- randomNumber
+}
+
 func main() {
-	var foovar footypes.Foo
-	foovar.TypeInt = 18
-	foovar.TypeString = "Gemini"
-	foovar.TypeBoolean = true
+	foo := make(chan int)
 
-	fmt.Println(foovar)
+	go CalculateValue(foo)
 
+	num := <-foo
+	fmt.Println(num)
 }
