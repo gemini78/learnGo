@@ -13,7 +13,7 @@ func CalculateValue(intChan chan int) {
 
 func main() {
 	foo := make(chan int)
-
+	defer close(foo)
 	go CalculateValue(foo)
 
 	num := <-foo
